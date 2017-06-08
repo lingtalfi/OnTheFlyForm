@@ -73,6 +73,7 @@ Here is a typical on-the-fly form model, I believe it doesn't need too much expl
 - errorEmail => "",
 - errorPass => "",
 - errorPass2" => "",
+```         
 
 
 As you can guess, we have the following prefixes:
@@ -86,7 +87,6 @@ As you can guess, we have the following prefixes:
          
 - error: indicate the error message to display (only one, not an array of messages,
           because the philosophy is to alleviate the template author's work)
-```         
 
 So that's it!
 

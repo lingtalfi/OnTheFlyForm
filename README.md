@@ -433,6 +433,10 @@ Read the source code's comments for more info.
 History Log
 ------------------
     
+- 1.0.1 -- 2017-06-09
+
+    - OnTheFlyForm.validate, fix forgot to inject values
+    
 - 1.0.0 -- 2017-06-09
 
     - initial commit

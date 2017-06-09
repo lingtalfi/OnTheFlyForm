@@ -365,7 +365,17 @@ if (array_key_exists("data", $_POST)) {
     if (true === $form->validate($data, $model)) { // try to validate the data passed by the user...
         // data is valid :)
         // apply your business logic here...
-        $out = EkomApi::inst()->userLayer()->createAddress($userId, $data);
+        if(true === EkomApi::inst()->userLayer()->createAddress($userId, $data)){
+            $out = [
+                "type" => "success",
+            ];
+        }
+        else {
+            $out = [
+                "type" => "error",
+                "error" => "An exception occurred, please contact the webmaster.",
+            ];
+        }       
     } else {
         // the form contains validation errors (validation triggers are set in the $form instance)
         $out = [

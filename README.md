@@ -26,7 +26,7 @@ Or just download it and place it where you want otherwise.
 Intro (the guy needs to talk about his project...)
 ===========
 
-When I have time, I like to use a [form model]((https://github.com/lingtalfi/formmodel)) to handle my forms.
+When I have time, I like to use a [form model](https://github.com/lingtalfi/formmodel) to handle my forms.
 
 That's in theory only because in practice time is such a scarce resource.
 
@@ -440,7 +440,7 @@ Read the source code's comments for more info.
 Related
 ========== 
 - https://github.com/lingtalfi/table-form
-
+- https://github.com/lingtalfi/formmodel
 
 
  

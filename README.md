@@ -433,7 +433,7 @@ The idea with data-error is that this script injects the validation errors in yo
 The idea with data-error-popout is that if you focus a control which has a validation error, 
 the error message vanishes.
 
-Read the source code's comments for more info.
+Read the [source code](https://github.com/lingtalfi/OnTheFlyForm/blob/master/www/libs/on-the-fly-form/on-the-fly-form.js)'s comments for more info.
 
 
 

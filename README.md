@@ -433,6 +433,12 @@ The idea with data-error is that this script injects the validation errors in yo
 The idea with data-error-popout is that if you focus a control which has a validation error, 
 the error message vanishes.
 
+There is also a data-error-text attribute that you can use along with the data-error attribute,
+
+- data-error indicates the container (to show/hide)
+- data-error-text indicates the element inside data-error holding the error message
+
+
 Read the [source code](https://github.com/lingtalfi/OnTheFlyForm/blob/master/www/libs/on-the-fly-form/on-the-fly-form.js)'s comments for more info.
 
 
@@ -448,6 +454,10 @@ Related
 History Log
 ------------------
     
+- 1.1.0 -- 2017-07-02
+
+    - onTheFlyForm.injectValidationErrors now supports the data-error-text attribute
+
 - 1.0.1 -- 2017-06-09
 
     - OnTheFlyForm.validate, fix forgot to inject values

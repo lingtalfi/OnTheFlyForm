@@ -443,6 +443,46 @@ Read the [source code](https://github.com/lingtalfi/OnTheFlyForm/blob/master/www
 
 
 
+Using data-error-popout with static form
+===========================================
+
+
+Problem
+-----------
+So you create a static form (a form which validation is processed server side), 
+the user fills the form, submit the data, and some validation error occurs.
+
+So right now the form has red errors all over the place, and what you want is:
+when the user clicks on the control to fix the validation error, the error disappear.
+
+Solution
+-----------
+
+You can use the onTheFlyForm js script to do that.
+
+First ensure that you implement the correct markup described in the onTheFlyForm script.
+
+1. Add the data-error-popout attribute to the control on which a click will trigger the error removal (typically 
+on elements like input, select, ...)
+
+
+2. Add the data-error attribute, with the appropriate value (the control name, see js script source code comments for more details)
+on the error container.
+
+
+3. Include the onTheFlyForm js script into your app and add this line in your javascript code:
+
+```js
+window.onTheFlyForm.staticFormInit(jContext); // jContext is any jquery object that contains the relevant markup (typically a form or a div containing the form)
+```
+
+
+
+
+
+
+
+
 Related
 ========== 
 - https://github.com/lingtalfi/table-form
@@ -453,6 +493,10 @@ Related
 
 History Log
 ------------------
+    
+- 1.2.0 -- 2017-07-23
+
+    - add onTheFlyForm.staticFormInit method
     
 - 1.1.0 -- 2017-07-02
 

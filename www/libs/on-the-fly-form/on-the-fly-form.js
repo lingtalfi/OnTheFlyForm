@@ -48,6 +48,18 @@ if ('undefined' === typeof window.onTheFlyForm) {
      *
      */
     window.onTheFlyForm = {
+        staticFormInit: function (jContext) {
+            jContext.on('click.onTheFlyFormStatic', function (e) {
+                var jTarget = $(e.target);
+                var id = jTarget.attr('data-error-popout');
+                if ("undefined" !== typeof id) {
+                    var jError = jContext.find('[data-error="' + id + '"]');
+                    if (jError.length) {
+                        jError.hide();
+                    }
+                }
+            });
+        },
         injectValidationErrors: function (jForm, model) {
 
             var jErrorFields = jForm.find("[data-error]");

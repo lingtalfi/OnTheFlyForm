@@ -13,12 +13,16 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     private $ids;
     private $options;
     private $notHtmlSpecialChars;
-    private $successMessage;
     private $validationRules;
     private $key;
-    private $method;
     private $injectedData;
     private $model;
+    // form level
+    private $action;
+    private $method;
+    private $errorMessage;
+    private $successMessage;
+    private $isSuccess;
     /**
      * @var ValidatorInterface
      */
@@ -36,8 +40,12 @@ class OnTheFlyForm implements OnTheFlyFormInterface
             $key = 'key-' . uniqid(md5(rand(1, 100000) + time()));
         }
         $this->key = $key;
+        $this->action = '';
         $this->method = 'post'; // post|get
         $this->model = null;
+        $this->errorMessage = null;
+        $this->successMessage = null;
+        $this->isSuccess = false;
     }
 
 
@@ -64,7 +72,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
 
     public function setSuccessMessage($successMessage)
     {
-        $this->model['successMessage'] = $successMessage;
+        $this->successMessage = $successMessage;
         return $this;
     }
 
@@ -76,7 +84,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
 
     public function setErrorMessage($errorMessage)
     {
-        $this->model['errorMessage'] = $errorMessage;
+        $this->errorMessage = $errorMessage;
         return $this;
     }
 
@@ -86,6 +94,11 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         return $this;
     }
 
+    public function setAction($action)
+    {
+        $this->action = $action;
+        return $this;
+    }
 
 
 
@@ -117,12 +130,22 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     public function getModel()
     {
         $this->prepareModel();
+        $this->model['formMethod'] = $this->method;
+        $this->model['formAction'] = $this->action;
+
+        $this->model['errorMessage'] = $this->errorMessage;
+        if (true === $this->isSuccess) {
+            $this->model['successMessage'] = $this->successMessage;
+        } else {
+            $this->model['successMessage'] = "";
+        }
+
         return $this->model;
     }
 
     public function success()
     {
-        $this->model['isSuccess'] = true;
+        $this->isSuccess = true;
     }
 
 
@@ -150,6 +173,10 @@ class OnTheFlyForm implements OnTheFlyFormInterface
          */
         if (null === $this->model) {
             $model = [];
+
+            //--------------------------------------------
+            // CONTROL LEVEL
+            //--------------------------------------------
             foreach ($this->ids as $id) {
 
                 $value = (array_key_exists($id, $this->injectedData)) ? $this->injectedData[$id] : '';

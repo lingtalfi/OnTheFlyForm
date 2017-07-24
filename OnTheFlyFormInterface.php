@@ -33,7 +33,8 @@ namespace OnTheFlyForm;
  *              // sometimes you need more business logic before validating the form...
  *              if (true === true) {
  *                  // do your things with $_POST (not the model, which is only for the view)
- *                  $form->success(); // injects the success message into the model for the view
+ *                  $form->success(); // injects the success message into the model for the view,
+ *                                    // otherwise, the success message is empty
  *              } else {
  *                  $form->setErrorMessage("");
  *              }

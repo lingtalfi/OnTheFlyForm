@@ -3,60 +3,175 @@
 
 namespace OnTheFlyForm;
 
-use FormTools\Validation\OnTheFlyFormValidator;
+use Bat\CaseTool;
+use OnTheFlyForm\Helper\OnTheFlyFormHelper;
+use OnTheFlyForm\Validator\ValidatorInterface;
 
-abstract class OnTheFlyForm implements OnTheFlyFormInterface
+class OnTheFlyForm implements OnTheFlyFormInterface
 {
 
+    private $ids;
+    private $options;
+    private $notHtmlSpecialChars;
+    private $successMessage;
+    private $validationRules;
+    private $key;
+    private $method;
+    private $injectedData;
+    private $model;
     /**
-     * @return array, the base model for the form,
-     * with the default values.
+     * @var ValidatorInterface
      */
-    abstract protected function getBaseModel();
+    private $formValidator;
 
-
-    public function getModel()
+    public function __construct(array $ids, $key = null)
     {
-        return $this->getBaseModel();
+        $this->ids = $ids;
+        $this->options = [];
+        $this->notHtmlSpecialChars = [];
+        $this->successMessage = "";
+        $this->validationRules = [];
+        $this->injectedData = [];
+        if (null === $key) {
+            $key = 'key-' . uniqid(md5(rand(1, 100000) + time()));
+        }
+        $this->key = $key;
+        $this->method = 'post'; // post|get
+        $this->model = null;
     }
 
-    public function validate(array $data, array &$model)
+
+    public static function create(array $ids, $key = null)
     {
-        // inject user values in model
-        foreach ($model as $k => $v) {
-            if (0 === strpos($k, 'name')) {
-                $pascal = substr($k, 4);
-                if (
-                    array_key_exists('name' . $pascal, $model) &&
-                    array_key_exists($model['name' . $pascal], $data)
-                ) {
-                    $model['value' . $pascal] = $data[$model['name' . $pascal]];
-                }
-            }
-        }
+        return new static($ids, $key);
+    }
 
-//        $model['checkedNewsletter'] = (array_key_exists($model['nameNewsletter'], $_POST)) ? 'checked' : '';
 
-        $validator = OnTheFlyFormValidator::create();
-        if (true === $validator->validate($this->getField2Validators(), $model)
-        ) {
+    //--------------------------------------------
+    // SETTERS
+    //--------------------------------------------
+    public function setOptions($id, array $options)
+    {
+        $this->options[$id] = $options;
+        return $this;
+    }
+
+    public function setNotHtmlSpecialChars(array $notHtmlSpecialCharsIds)
+    {
+        $this->notHtmlSpecialChars = $notHtmlSpecialCharsIds;
+        return $this;
+    }
+
+    public function setSuccessMessage($successMessage)
+    {
+        $this->successMessage = $successMessage;
+        return $this;
+    }
+
+    public function setValidationRules(array $validationRules)
+    {
+        $this->validationRules = $validationRules;
+        return $this;
+    }
+
+    public function setErrorMessage($errorMessage)
+    {
+        $this->model['errorMessage'] = $errorMessage;
+        return $this;
+    }
+
+    public function setMethod($method)
+    {
+        $this->method = $method;
+        return $this;
+    }
+
+
+
+
+    //--------------------------------------------
+    // FUNCTIONAL
+    //--------------------------------------------
+    public function isPosted()
+    {
+        $arr = ('post' === $this->method) ? $_POST : $_GET;
+        return array_key_exists($this->key, $arr);
+    }
+
+    public function inject(array $data)
+    {
+        $this->injectedData = $data;
+        return $this;
+    }
+
+    public function validate()
+    {
+        $this->prepareModel();
+        $validator = $this->getValidator();
+        if (true === $validator->validate($this->validationRules, $this->model)) {
             return true;
         }
         return false;
+    }
+
+    public function getModel()
+    {
+        $this->prepareModel();
+        return $this->model;
+    }
+
+    public function success()
+    {
+        $this->model['successMessage'] = $this->successMessage;
     }
 
 
     //--------------------------------------------
     //
     //--------------------------------------------
-    protected function getField2Validators()
+    protected function getValidator()
     {
-        return [];
-//        return [
-//            'email' => ['required', 'email'],
-//            'pass' => ['required', "min:3"],
-//            'pass2' => ['required', 'sameAs:pass'],
-//        ];
+        if (null === $this->formValidator) {
+            $this->formValidator = new \OnTheFlyForm\Validator\OnTheFlyFormValidator();
+        }
+        return $this->formValidator;
+    }
+
+
+
+    //--------------------------------------------
+    //
+    //--------------------------------------------
+    private function prepareModel()
+    {
+        /**
+         * The model needs to be prepared before the validation is executed,
+         * or before the model is returned.
+         */
+        if (null === $this->model) {
+            $model = [];
+            foreach ($this->ids as $id) {
+
+                $value = (array_key_exists($id, $this->injectedData)) ? $this->injectedData[$id] : '';
+                if (!in_array($id, $this->notHtmlSpecialChars)) {
+                    $value = htmlspecialchars($value);
+                }
+
+
+                $pascal = OnTheFlyFormHelper::idToPascal($id);
+                $model['name' . $pascal] = $id;
+                $model['value' . $pascal] = $value;
+                $model['error' . $pascal] = "";
+            }
+
+            foreach ($this->options as $id => $options) {
+                $pascal = OnTheFlyFormHelper::idToPascal($id);
+                $model['options' . $pascal] = $options;
+            }
+
+            $this->model = $model;
+        }
+        return $this->model;
     }
 }
 

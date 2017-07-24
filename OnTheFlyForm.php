@@ -28,30 +28,30 @@ class OnTheFlyForm implements OnTheFlyFormInterface
      */
     private $formValidator;
 
-    public function __construct(array $ids, $key = null)
+    public function __construct()
     {
-        $this->ids = $ids;
+        $this->ids = [];
         $this->options = [];
         $this->notHtmlSpecialChars = [];
-        $this->successMessage = "";
+        $this->successMessage = "Congratulations!";
         $this->validationRules = [];
         $this->injectedData = [];
-        if (null === $key) {
-            $key = 'key-' . uniqid(md5(rand(1, 100000) + time()));
-        }
-        $this->key = $key;
+        $this->key = 'key-' . uniqid(md5(rand(1, 100000) + time()));
         $this->action = '';
         $this->method = 'post'; // post|get
         $this->model = null;
         $this->errorMessage = null;
         $this->successMessage = null;
-        $this->isSuccess = false;
+        $this->isSuccess = true;
     }
 
 
     public static function create(array $ids, $key = null)
     {
-        return new static($ids, $key);
+        $o = new static();
+        $o->setIds($ids);
+        $o->setKey($key);
+        return $o;
     }
 
 
@@ -85,6 +85,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     public function setErrorMessage($errorMessage)
     {
         $this->errorMessage = $errorMessage;
+        $this->isSuccess = false;
         return $this;
     }
 
@@ -99,6 +100,20 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->action = $action;
         return $this;
     }
+
+    public function setIds(array $ids)
+    {
+        $this->ids = $ids;
+        return $this;
+    }
+
+    public function setKey($key)
+    {
+        $this->key = $key;
+        return $this;
+    }
+
+
 
 
 
@@ -124,6 +139,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         if (true === $validator->validate($this->validationRules, $this->model)) {
             return true;
         }
+        $this->isSuccess = false;
         return false;
     }
 
@@ -143,10 +159,6 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         return $this->model;
     }
 
-    public function success()
-    {
-        $this->isSuccess = true;
-    }
 
 
     //--------------------------------------------

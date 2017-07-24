@@ -48,6 +48,16 @@ namespace OnTheFlyForm;
  * $model = $form->getModel(); // see form onTheFlyForm model for more details
  * a($model);
  *
+ *
+ *
+ * By default, the isSuccess property is set to true.
+ * It becomes false only if one of the following cases occur:
+ *
+ * - the validate method has been called and some validation errors have been found
+ * - the setErrorMessage method has been called
+ *
+ *
+ *
  */
 interface OnTheFlyFormInterface
 {
@@ -57,7 +67,22 @@ interface OnTheFlyFormInterface
      */
     public function getModel();
 
+
     public function validate();
+
+    public function inject(array $data);
+
+    /**
+     * Returns whether or not this form was posted.
+     * This is mostly useful if there are potentially multiple form instances on the same page.
+     *
+     * @return bool
+     */
+    public function isPosted();
+
+    public function setSuccessMessage($message);
+
+    public function setErrorMessage($message);
 
 }
 

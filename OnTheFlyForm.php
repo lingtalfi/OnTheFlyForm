@@ -64,7 +64,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
 
     public function setSuccessMessage($successMessage)
     {
-        $this->successMessage = $successMessage;
+        $this->model['successMessage'] = $successMessage;
         return $this;
     }
 
@@ -122,7 +122,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
 
     public function success()
     {
-        $this->model['successMessage'] = $this->successMessage;
+        $this->model['isSuccess'] = true;
     }
 
 

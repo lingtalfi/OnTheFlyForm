@@ -3,7 +3,7 @@
 
 namespace OnTheFlyForm;
 
-use Bat\CaseTool;
+
 use OnTheFlyForm\Helper\OnTheFlyFormHelper;
 use OnTheFlyForm\Validator\ValidatorInterface;
 

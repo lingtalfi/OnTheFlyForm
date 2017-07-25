@@ -68,6 +68,9 @@ interface OnTheFlyFormInterface
     public function getModel();
 
 
+    /**
+     * @return bool
+     */
     public function validate();
 
     public function inject(array $data);

@@ -2,6 +2,8 @@ OnTheFlyForm
 ===================
 2017-06-08 --> 2017-07-24
 
+work in progress...
+
 
 A quick dirty form strategy for your front forms.
 
@@ -102,6 +104,23 @@ Options of the select are passed using the **options** prefix.
 For instance, if you have a control named country, you set the options like this:
 
 - optionsCountry: array of key => label 
+
+
+Tutorials
+==============
+
+There are two main form types that we want to achieve:
+
+- static form
+- ajax form
+
+
+The difference between the static form and the ajax form relies in WHO is handling
+the posted data: either a controller (usually the same that displayed the form) or an ajax service.
+
+- [static form tutorial](https://github.com/lingtalfi/OnTheFlyForm/blob/master/doc/tutorial/static-form.md)
+- [ajax form tutorial](https://github.com/lingtalfi/OnTheFlyForm/blob/master/doc/tutorial/ajax-form.md)
+
 
 
 
@@ -266,6 +285,10 @@ Labels are in french in this case, and the **m:** prefix comes from the kamille 
 
 History Log
 ------------------
+    
+- 2.2.0 -- 2017-07-25
+
+    - fix OnTheFlyFormValidator.validate not returning boolean
     
 - 2.1.0 -- 2017-07-24
 

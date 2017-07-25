@@ -55,7 +55,7 @@ class OnTheFlyFormValidator implements ValidatorInterface
 
 
         $model['_formErrors'] = $allErrors;
-
+        return (0 === count($allErrors));
     }
 
 

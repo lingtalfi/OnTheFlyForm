@@ -126,8 +126,31 @@ if ('undefined' === typeof window.onTheFlyForm) {
                 }
 
             }
-        }
+        },
+        postForm: function (jTarget, uriService, onSuccess, onError) {
 
+            var jForm = jTarget.closest("form");
+            var itemData = jForm.serialize();
+
+            $.post(uriService, {
+                data: itemData
+            }, function (r) {
+                if ("success" === r.type) {
+                    onSuccess();
+                }
+                else if ("error" === r.type) {
+                    if ('undefined' === typeof onError) {
+                        onError = function (m) {
+                            console.log("error: " + m);
+                        };
+                    }
+                    onError(r.error);
+                }
+                else if ('formerror' === r.type) {
+                    window.onTheFlyForm.injectValidationErrors(jForm, r.model);
+                }
+            }, 'json');
+        }
     };
 }
 

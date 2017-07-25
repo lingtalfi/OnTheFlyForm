@@ -30,4 +30,9 @@ class OnTheFlyFormHelper
             echo '<option ' . $sSel . ' value="' . $k . '">' . $v . '</option>';
         }
     }
+
+    public static function generateKey(array $model)
+    {
+        echo '<input type="hidden" name="' . $model['nameKey'] . '" value="' . $model['valueKey'] . '" />';
+    }
 }

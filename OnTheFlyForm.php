@@ -23,6 +23,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     private $errorMessage;
     private $successMessage;
     private $isSuccess;
+    private $validationOk;
     /**
      * @var ValidatorInterface
      */
@@ -36,13 +37,14 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->successMessage = "Congratulations!";
         $this->validationRules = [];
         $this->injectedData = [];
-        $this->key = 'key-' . uniqid(md5(rand(1, 100000) + time()));
+        $this->key = 'ontheflyform_default_key';
         $this->action = '';
         $this->method = 'post'; // post|get
         $this->model = null;
-        $this->errorMessage = null;
-        $this->successMessage = null;
+        $this->errorMessage = "";
+        $this->successMessage = "";
         $this->isSuccess = true;
+        $this->validationOk = true;
     }
 
 
@@ -139,6 +141,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         if (true === $validator->validate($this->validationRules, $this->model)) {
             return true;
         }
+        $this->validationOk = false;
         $this->isSuccess = false;
         return false;
     }
@@ -151,10 +154,18 @@ class OnTheFlyForm implements OnTheFlyFormInterface
 
         $this->model['errorMessage'] = $this->errorMessage;
         if (true === $this->isSuccess) {
+            $this->model['isSuccess'] = true;
             $this->model['successMessage'] = $this->successMessage;
         } else {
             $this->model['successMessage'] = "";
+            $this->model['isSuccess'] = false;
         }
+
+        $this->model['isPosted'] = $this->isPosted();
+
+
+        $this->model['validationOk'] = $this->validationOk;
+
 
         return $this->model;
     }
@@ -207,6 +218,11 @@ class OnTheFlyForm implements OnTheFlyFormInterface
                 $pascal = OnTheFlyFormHelper::idToPascal($id);
                 $model['options' . $pascal] = $options;
             }
+
+
+            $model['nameKey'] = $this->key;
+            $model['valueKey'] = 1;
+
 
             $this->model = $model;
         }

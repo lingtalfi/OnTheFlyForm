@@ -24,6 +24,8 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     private $successMessage;
     private $isSuccess;
     private $validationOk;
+    //
+    private $radioItems;
     /**
      * @var ValidatorInterface
      */
@@ -45,6 +47,8 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->successMessage = "";
         $this->isSuccess = true;
         $this->validationOk = true;
+        //
+        $this->radioItems = [];
     }
 
 
@@ -63,6 +67,13 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     public function setOptions($id, array $options)
     {
         $this->options[$id] = $options;
+        return $this;
+    }
+
+
+    public function setRadioItems($id, array $radioItems)
+    {
+        $this->radioItems[$id] = $radioItems;
         return $this;
     }
 
@@ -217,6 +228,16 @@ class OnTheFlyForm implements OnTheFlyFormInterface
             foreach ($this->options as $id => $options) {
                 $pascal = OnTheFlyFormHelper::idToPascal($id);
                 $model['options' . $pascal] = $options;
+            }
+
+
+            foreach ($this->radioItems as $id => $items) {
+                $pascal = OnTheFlyFormHelper::idToPascal($id);
+                foreach ($items as $item) {
+                    $checkedPascal = OnTheFlyFormHelper::idToPascal($item);
+                    $model['value' . $pascal . '__' . $checkedPascal] = $item;
+                    $model['checked' . $pascal . '__' . $checkedPascal] = (array_key_exists($id, $this->injectedData) && $item === $this->injectedData[$id]) ? 'checked' : '';
+                }
             }
 
 

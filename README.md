@@ -59,16 +59,21 @@ Those data control the behaviour of the form.
 - formAction: the action attribute of the form
 - formMethod: the method attribute of the form
 - isSuccess: bool, whether or not the form is successful.
-                    Successful means two things:
-                    - it has passed basic validation tests (for instance checking that the email's format is valid)
-                    - it has passed user post validation tests (for instance checking that the email doesn't exist already in the database)
+                    It's always true unless at least one of the conditions below occur:
+                    - the validate method has been called and at least one validation test failed
+                    - the setErrorMessage method has been called 
                     
+- validationOk: bool, is always true unless the validate method has been called and at least one validation test failed
+- isPosted: bool, whether or not the form has been posted, equivalent to whether or not 
+                        the (supposedly unique) key of the form is found in the posted data
                     
-- successMessage: the success message to display if the form was successful.
+- successMessage: the success message to display if the form was successful (see isSuccess property).
 - errorMessage: the error message to display in case of error. There is only one message, because it's simpler than multiple error messages.
                     If you want to display multiple error messages, use the _formErrors property.
 
 - _formErrors: array of error messages that occurred during the basic validation phase (both basic validation and user post validation).
+- nameKey: the reserved property for the name of the form identifying key 
+- valueKey: the reserved property for the value of the form identifying key 
                     
                     
  
@@ -106,6 +111,41 @@ For instance, if you have a control named country, you set the options like this
 - optionsCountry: array of key => label 
 
 
+### named radio items
+
+For radio items, there is a special treatment.
+
+The goal is to provide a value and a checked state (checked or empty) for each radio item.
+
+The following notation is used:
+
+- checkedNotationForRadioItem: <checked> <controlIdPascal> <__> <radioIdPascal> 
+- valueNotationForRadioItem: <value> <controlIdPascal> <__> <radioIdPascal>
+
+With:
+
+- checked: "checked" 
+- value: "value" 
+- controlIdPascal: the id of the control in Pascal case 
+- radioIdPascal: the id/value of the radio item in Pascal case
+
+
+So for instance, if we have a radio item named country with three values: france, germany and spain, 
+the following variables must be part of the model:
+
+- valueCountry__France:
+- valueCountry__Germany:
+- valueCountry__Spain:
+- checkedCountry__France:
+- checkedCountry__Germany:
+- checkedCountry__Spain:
+ 
+
+
+
+
+
+
 Tutorials
 ==============
 
@@ -127,6 +167,10 @@ the posted data: either a controller (usually the same that displayed the form) 
 
 History Log
 ------------------
+    
+- 2.4.0 -- 2017-07-25
+
+    - add OnTheFlyForm.setRadioItems method
     
 - 2.3.0 -- 2017-07-25
 

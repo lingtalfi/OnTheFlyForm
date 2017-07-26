@@ -4,6 +4,7 @@
 namespace OnTheFlyForm;
 
 
+use OnTheFlyForm\DataAdaptor\DataAdaptorInterface;
 use OnTheFlyForm\Helper\OnTheFlyFormHelper;
 use OnTheFlyForm\Validator\ValidatorInterface;
 
@@ -30,6 +31,16 @@ class OnTheFlyForm implements OnTheFlyFormInterface
      * @var ValidatorInterface
      */
     private $formValidator;
+
+    /**
+     * @var DataAdaptorInterface|null
+     */
+    private $inputDataAdaptor;
+
+    /**
+     * @var DataAdaptorInterface|null
+     */
+    private $outputDataAdaptor;
 
     public function __construct()
     {
@@ -126,7 +137,17 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         return $this;
     }
 
+    public function setInputDataAdaptor(DataAdaptorInterface $inputDataAdaptor)
+    {
+        $this->inputDataAdaptor = $inputDataAdaptor;
+        return $this;
+    }
 
+    public function setOutputDataAdaptor(DataAdaptorInterface $outputDataAdaptor)
+    {
+        $this->outputDataAdaptor = $outputDataAdaptor;
+        return $this;
+    }
 
 
 
@@ -139,8 +160,11 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         return array_key_exists($this->key, $arr);
     }
 
-    public function inject(array $data)
+    public function inject(array $data, $useAdaptor = false)
     {
+        if (true === $useAdaptor && null !== $this->inputDataAdaptor) {
+            $data = $this->inputDataAdaptor->transform($data);
+        }
         $this->injectedData = $data;
         return $this;
     }
@@ -179,6 +203,16 @@ class OnTheFlyForm implements OnTheFlyFormInterface
 
 
         return $this->model;
+    }
+
+
+    public function getData()
+    {
+        $data = $this->injectedData;
+        if (null !== $this->outputDataAdaptor) {
+            $data = $this->outputDataAdaptor->transform($data);
+        }
+        return $data;
     }
 
 

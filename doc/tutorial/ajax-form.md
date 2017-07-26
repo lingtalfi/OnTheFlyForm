@@ -480,6 +480,10 @@ case 'user.newAddress':
         $outData = null;
 
         if (true === $form->validate()) {
+            
+            
+            $data = $form->getData(); // now do what you want with data
+            
 
             if (true === $userLayer->createAddress($userId, $data, $addressId)) {
                 $outData = [

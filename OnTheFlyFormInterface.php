@@ -4,14 +4,19 @@
 namespace OnTheFlyForm;
 
 
-
 interface OnTheFlyFormInterface
 {
 
     /**
-     * @return array, the model used for the form
+     * @return array, the model representing the form, to pass to the template
      */
     public function getModel();
+
+    /**
+     * @return array, the data, injected via the inject method, and potentially formatted for better interoperability
+     * with the application
+     */
+    public function getData();
 
 
     /**
@@ -19,7 +24,7 @@ interface OnTheFlyFormInterface
      */
     public function validate();
 
-    public function inject(array $data);
+    public function inject(array $data, $useAdaptor = false);
 
     /**
      * Returns whether or not this form was posted.

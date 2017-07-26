@@ -164,9 +164,20 @@ the posted data: either a controller (usually the same that displayed the form) 
 
 
 
+About Adaptors
+=====================
+
+- [adaptors](https://github.com/lingtalfi/OnTheFlyForm/blob/master/doc/adaptors.md)
+
+
+
 
 History Log
 ------------------
+    
+- 2.5.0 -- 2017-07-26
+
+    - add DataAdaptorInterface interface
     
 - 2.4.0 -- 2017-07-25
 

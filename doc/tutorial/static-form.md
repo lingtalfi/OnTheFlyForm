@@ -120,7 +120,9 @@ if (true === $form->isPosted()) { // the form was posted
 
         // sometimes you need more business logic before validating the form...
         if (true === true) {
-            // do your things with $_POST (not the model, which is only for the view)
+            
+            $data = $form->getData(); // now do what you want with data
+            
             $form->setSuccessMessage("All right!"); // customize the success message if you don't want to use the default one
         } else {
             // always inform the user when something wrong happens
@@ -131,7 +133,10 @@ if (true === $form->isPosted()) { // the form was posted
     $defaultValues = [
         'country' => "FR",
     ];
-    $form->inject($defaultValues); // inject data for data persistency in the view
+    
+    // inject data for data persistency in the view
+    // the second argument is true, it's the useAdaptor flag; see the adaptors document for more info
+    $form->inject($defaultValues, true); 
 }
 
 

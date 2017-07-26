@@ -38,5 +38,12 @@ interface OnTheFlyFormInterface
 
     public function setErrorMessage($message);
 
+    /**
+     * @param array $rules , define the validation rules to execute when the validate method is called.
+     *                      See the documentation for more details.
+     * @return void
+     */
+    public function setValidationRules(array $rules);
+
 }
 

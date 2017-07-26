@@ -27,6 +27,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     private $validationOk;
     //
     private $radioItems;
+    private $singleCheckboxes;
     /**
      * @var ValidatorInterface
      */
@@ -60,6 +61,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->validationOk = true;
         //
         $this->radioItems = [];
+        $this->singleCheckboxes = [];
     }
 
 
@@ -149,6 +151,12 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         return $this;
     }
 
+
+    public function setSingleCheckboxes(array $singleCheckboxes)
+    {
+        $this->singleCheckboxes = $singleCheckboxes;
+        return $this;
+    }
 
 
     //--------------------------------------------
@@ -272,6 +280,16 @@ class OnTheFlyForm implements OnTheFlyFormInterface
                     $model['value' . $pascal . '__' . $checkedPascal] = $item;
                     $model['checked' . $pascal . '__' . $checkedPascal] = (array_key_exists($id, $this->injectedData) && $item === $this->injectedData[$id]) ? 'checked' : '';
                 }
+            }
+
+
+            foreach ($this->singleCheckboxes as $id) {
+                $checked = '';
+                if (array_key_exists($id, $this->injectedData)) {
+                    $checked = 'checked';
+                }
+                $pascal = OnTheFlyFormHelper::idToPascal($id);
+                $model['checked' . $pascal] = $checked;
             }
 
 

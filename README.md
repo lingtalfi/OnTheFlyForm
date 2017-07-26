@@ -156,6 +156,18 @@ value would do actually).
 You can check whether or not a single checkbox was checked using the **required** validation test rule.
 
 
+### labels
+
+Labels are added by the developer.
+Note: if a label is not added, the corresponding **label** property will not exist.
+
+Labels were created to enhance the validation error message text.
+
+
+So, for instance with an id of **email**, the property would be:
+
+- labelEmail:
+
 
 
 
@@ -187,6 +199,10 @@ About Adaptors
 
 History Log
 ------------------
+    
+- 2.9.0 -- 2017-07-26
+
+    - add OnTheFlyFormInterface.setLabels method
     
 - 2.8.1 -- 2017-07-26
 

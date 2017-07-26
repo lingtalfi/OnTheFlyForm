@@ -45,5 +45,12 @@ interface OnTheFlyFormInterface
      */
     public function setValidationRules(array $rules);
 
+    /**
+     * @param array $labels, array of id => label
+     *          Labels are mostly used for validation error messages.
+     * @return void
+     */
+    public function setLabels(array $labels);
+
 }
 

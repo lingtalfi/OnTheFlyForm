@@ -42,6 +42,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
      * @var DataAdaptorInterface|null
      */
     private $outputDataAdaptor;
+    private $labels;
 
     public function __construct()
     {
@@ -62,6 +63,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         //
         $this->radioItems = [];
         $this->singleCheckboxes = [];
+        $this->labels = [];
     }
 
 
@@ -155,6 +157,12 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     public function setSingleCheckboxes(array $singleCheckboxes)
     {
         $this->singleCheckboxes = $singleCheckboxes;
+        return $this;
+    }
+
+    public function setLabels(array $labels)
+    {
+        $this->labels = $labels;
         return $this;
     }
 
@@ -265,6 +273,11 @@ class OnTheFlyForm implements OnTheFlyFormInterface
                 $model['name' . $pascal] = $id;
                 $model['value' . $pascal] = $value;
                 $model['error' . $pascal] = "";
+
+                if (array_key_exists($id, $this->labels)) {
+                    $model['label' . $pascal] = $this->labels[$id];
+                }
+
             }
 
             foreach ($this->options as $id => $options) {

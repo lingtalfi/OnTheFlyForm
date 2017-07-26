@@ -141,6 +141,19 @@ the following variables must be part of the model:
 - checkedCountry__Spain:
  
 
+### single checkboxes
+
+For single checkboxes, we add a property starting with the "checked" prefix, which value can be either checked or an
+empty string.
+
+So for instance, if the id is abo_newsletter, then the extra property would be:
+
+- checkedAboNewsletter:
+
+At the template level, you don't need to use the **valueAboNewsletter** property, just put a 1 (or any non empty
+value would do actually).
+
+You can check whether or not a single checkbox was checked using the **required** validation test rule.
 
 
 
@@ -174,6 +187,10 @@ About Adaptors
 
 History Log
 ------------------
+    
+- 2.8.0 -- 2017-07-26
+
+    - remove OnTheFlyFormValidator checked rule
     
 - 2.8.0 -- 2017-07-26
 

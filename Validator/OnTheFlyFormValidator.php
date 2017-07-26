@@ -73,11 +73,6 @@ class OnTheFlyFormValidator implements ValidatorInterface
                     $ok = false;
                 }
                 break;
-            case 'checked':
-                if (null === $value) {
-                    $ok = false;
-                }
-                break;
             case 'email':
                 if (false === FormValidatorTool::isEmail($value)) {
                     $ok = false;
@@ -155,7 +150,6 @@ class OnTheFlyFormValidator implements ValidatorInterface
     {
         return [
             "required" => "This field is required",
-            "checked" => "This field is required",
             "email" => "This is not a valid email",
             "match" => "This value doesn't match the {targetLabel} value",
             "minLength" => "This field must contain at least {minLength} characters",

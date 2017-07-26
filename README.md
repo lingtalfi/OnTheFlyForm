@@ -175,6 +175,10 @@ About Adaptors
 History Log
 ------------------
     
+- 2.8.0 -- 2017-07-26
+
+    - add OnTheFlyFormValidator checked rule
+    
 - 2.7.0 -- 2017-07-26
 
     - add OnTheFlyFormInterface.setValidationRules method

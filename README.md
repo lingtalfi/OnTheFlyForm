@@ -188,6 +188,10 @@ About Adaptors
 History Log
 ------------------
     
+- 2.8.1 -- 2017-07-26
+
+    - fix sameAs rule error message
+    
 - 2.8.0 -- 2017-07-26
 
     - remove OnTheFlyFormValidator checked rule

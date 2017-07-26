@@ -151,7 +151,7 @@ class OnTheFlyFormValidator implements ValidatorInterface
         return [
             "required" => "This field is required",
             "email" => "This is not a valid email",
-            "match" => "This value doesn't match the {targetLabel} value",
+            "sameAs" => "This value doesn't match the {targetLabel} value",
             "minLength" => "This field must contain at least {minLength} characters",
             "exactLength" => "This field must contain exactly {exactLength} characters, {currentLength} given",
         ];

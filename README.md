@@ -175,6 +175,10 @@ About Adaptors
 History Log
 ------------------
     
+- 2.6.0 -- 2017-07-26
+
+    - add DataAdaptor class
+    
 - 2.5.0 -- 2017-07-26
 
     - add DataAdaptorInterface interface

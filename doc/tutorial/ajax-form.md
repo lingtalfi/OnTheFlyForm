@@ -511,3 +511,20 @@ case 'user.newAddress':
     break;
 // ...    
 ```
+
+
+
+Conclusion
+============
+
+For the developer convenience, we can name the protocol that we use in this section.
+
+We will name it off protocol (On the Fly Form protocol), 
+and it will have its own [dedicated page here](https://github.com/lingtalfi/OnTheFlyForm/blob/master/doc/off-protocol.md).
+
+
+
+
+
+
+

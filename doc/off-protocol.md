@@ -51,7 +51,21 @@ See the OnTheFlyForm model for more info about how to detect whether the form wa
 
 
 - type: complete
-- model: the off form model, see the README at the root of this repository
+- model:  a subset of the off form model, see the README at the root of this repository,
+            containing the following entries:
+            
+            (form level)
+            - isSuccess
+            - validationOk
+            - successMessage
+            - errorMessage
+            - _formErrors
+            (control level)
+            - only the errorX fields (we don't need the nameX and valueX fields since they have already been displayed)
+            
+
+
+
 - data: extra data that the application might want to transmit
 
 

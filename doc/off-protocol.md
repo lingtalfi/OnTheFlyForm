@@ -73,6 +73,7 @@ an error message was set.
 The form was processed successfully (no validation error message, and no error message).
 
 - type: success
+- model: same as model in the formerror response
 - data: extra data that the application might want to transmit
 
 

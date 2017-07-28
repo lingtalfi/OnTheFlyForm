@@ -28,13 +28,17 @@ In
 Out
 --------
 
-There are two possible responses: one erroneous, and the other is complete.
+There are three possible responses: 
+
+- error
+- formerror
+- success
 
 
 
-### The erroneous response
+### The error response
 
-The erroneous response is triggered when something really bad happens, something unexpected, for instance the
+The error response is triggered when something exceptionally bad happens, something unexpected, for instance the
 user is not logged in and she was supposed to be logged in.
 
 
@@ -42,15 +46,13 @@ user is not logged in and she was supposed to be logged in.
 - error: the error message
 
 
-### The complete response
+### The formerror response
 
-The complete response simply means that the service was able to reach the onTheFlyForm code.
-The form can be erroneous or successful, both cases belongs to the **complete** category.
-
-See the OnTheFlyForm model for more info about how to detect whether the form was successful or erroneous.
-
-
-- type: complete
+The form error response means that the service was able to reach the onTheFlyForm code,
+but the code could not totally fulfill its goal(s): maybe a form validation error occurred, or 
+an error message was set.
+ 
+- type: formerror
 - model:  a subset of the off form model, see the README at the root of this repository,
             containing the following entries:
             
@@ -63,9 +65,14 @@ See the OnTheFlyForm model for more info about how to detect whether the form wa
             (control level)
             - only the errorX fields (we don't need the nameX and valueX fields since they have already been displayed)
             
+            
 
+### the success response
+       
 
+The form was processed successfully (no validation error message, and no error message).
 
+- type: success
 - data: extra data that the application might want to transmit
 
 

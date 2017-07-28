@@ -207,6 +207,10 @@ The off protocol
 History Log
 ------------------
     
+- 2.11.1 -- 2017-07-28
+
+    - update the off-protocol
+    
 - 2.11.0 -- 2017-07-28
 
     - change the off-protocol

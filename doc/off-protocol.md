@@ -40,6 +40,7 @@ There are three possible responses:
 
 The error response is triggered when something exceptionally bad happens, something unexpected, for instance the
 user is not logged in and she was supposed to be logged in.
+This is something the user shouldn't see (no public error message).
 
 
 - type: error
@@ -51,6 +52,9 @@ user is not logged in and she was supposed to be logged in.
 The form error response means that the service was able to reach the onTheFlyForm code,
 but the code could not totally fulfill its goal(s): maybe a form validation error occurred, or 
 an error message was set.
+
+In this case there should be a public error message displayed to the user.
+
  
 - type: formerror
 - model:  a subset of the off form model, see the README at the root of this repository,

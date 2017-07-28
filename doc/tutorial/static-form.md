@@ -194,9 +194,9 @@ $m = $v['formModel'];
 
     <?php if (true === $m['isPosted']): ?>
         <?php if ('' !== $m['successMessage']): ?>
-            <p class="off-success-message">Success message</p>
+            <p class="off-success-message">{m:successMessage}</p>
         <?php elseif ('' !== $m['errorMessage']): ?>
-            <p class="off-error-message">Error message</p>
+            <p class="off-error-message">{m:errorMessage}</p>
         <?php endif; ?>
     <?php endif; ?>
     

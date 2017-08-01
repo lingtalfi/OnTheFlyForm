@@ -298,7 +298,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
 
             foreach ($this->singleCheckboxes as $id) {
                 $checked = '';
-                if (array_key_exists($id, $this->injectedData)) {
+                if (array_key_exists($id, $this->injectedData) && 1 === (int)$this->injectedData[$id]) {
                     $checked = 'checked';
                 }
                 $pascal = OnTheFlyFormHelper::idToPascal($id);

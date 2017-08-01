@@ -207,6 +207,10 @@ The off protocol
 History Log
 ------------------
     
+- 2.13.0 -- 2017-08-01
+
+    - for single checkboxes, checkbox value now must translate to 1 to be checked (to ease default values integration) 
+    
 - 2.12.0 -- 2017-07-28
 
     - add OffProtocolHelper

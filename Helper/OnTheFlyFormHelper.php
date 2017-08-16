@@ -35,4 +35,11 @@ class OnTheFlyFormHelper
     {
         echo '<input type="hidden" name="' . $model['nameKey'] . '" value="' . $model['valueKey'] . '" />';
     }
+
+    public static function checked($v1, $v2)
+    {
+        if ($v1 === $v2) {
+            echo "checked";
+        }
+    }
 }

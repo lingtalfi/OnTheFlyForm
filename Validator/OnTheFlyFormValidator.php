@@ -27,7 +27,7 @@ class OnTheFlyFormValidator implements ValidatorInterface
 
         foreach ($allValidationRules as $id => $validationRules) {
 
-            $pascal = OnTheFlyFormHelper::idToPascal($id);
+            $pascal = OnTheFlyFormHelper::idToSuffix($id);
             $key = "value" . $pascal;
             $value = null; // null means inexistant
             if (array_key_exists($key, $model)) {
@@ -80,7 +80,7 @@ class OnTheFlyFormValidator implements ValidatorInterface
                 break;
             case 'sameAs':
                 $sameId = $this->getArgumentByIndex(0, $args);
-                $targetKey = "value" . OnTheFlyFormHelper::idToPascal($sameId);
+                $targetKey = "value" . OnTheFlyFormHelper::idToSuffix($sameId);
                 $targetLabel = OnTheFlyFormHelper::getLabel($sameId, $model);
                 if (false === array_key_exists($targetKey, $model) || $value !== $model[$targetKey]) {
                     $tags["targetLabel"] = $targetLabel;

@@ -84,7 +84,7 @@ Each control has an id, for instance email, or last_name.
 Each id gives birth to at least 3 corresponding properties: name, value and error.
 
 The model variables are created by prefixing the id with either name, value or error,
-and replace the id with it's [PascalCase](https://github.com/lingtalfi/ConventionGuy/blob/master/nomenclature.stringCases.eng.md) equivalent (camelCase with first letter uppercase). 
+and replace the id with it's [FlexiblePascalCase](https://github.com/lingtalfi/ConventionGuy/blob/master/nomenclature.stringCases.eng.md) equivalent (camelCase with first letter uppercase). 
 
 
 So for instance for email and last_name, the following variables need to be created:
@@ -206,6 +206,11 @@ The off protocol
 
 History Log
 ------------------
+    
+- 2.14.0 -- 2017-08-18
+
+    - add OnTheFlyForm.setImmutableValues  
+    - change suffix, use FlexiblePascalCase instead of PascalCase  
     
 - 2.13.0 -- 2017-08-01
 

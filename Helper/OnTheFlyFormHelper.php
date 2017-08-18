@@ -8,14 +8,14 @@ use Bat\CaseTool;
 
 class OnTheFlyFormHelper
 {
-    public static function idToPascal($id)
+    public static function idToSuffix($id)
     {
-        return CaseTool::snakeToPascal($id);
+        return CaseTool::snakeToFlexiblePascal($id);
     }
 
     public static function getLabel($id, array $model)
     {
-        $labelKey = "label" . self::idToPascal($id);
+        $labelKey = "label" . self::idToSuffix($id);
         if (array_key_exists($labelKey, $model)) {
             return $model[$labelKey];
         }
@@ -34,5 +34,12 @@ class OnTheFlyFormHelper
     public static function generateKey(array $model)
     {
         echo '<input type="hidden" name="' . $model['nameKey'] . '" value="' . $model['valueKey'] . '" />';
+    }
+
+    public static function checked($v1, $v2)
+    {
+        if ($v1 === $v2) {
+            echo 'checked';
+        }
     }
 }

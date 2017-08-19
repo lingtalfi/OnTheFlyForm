@@ -27,7 +27,7 @@ class OnTheFlyFormValidator implements ValidatorInterface
 
         foreach ($allValidationRules as $id => $validationRules) {
 
-            $pascal = OnTheFlyFormHelper::idToPascal($id);
+            $pascal = OnTheFlyFormHelper::idToSuffix($id);
             $key = "value" . $pascal;
             $value = null; // null means inexistant
             if (array_key_exists($key, $model)) {
@@ -80,7 +80,7 @@ class OnTheFlyFormValidator implements ValidatorInterface
                 break;
             case 'sameAs':
                 $sameId = $this->getArgumentByIndex(0, $args);
-                $targetKey = "value" . OnTheFlyFormHelper::idToPascal($sameId);
+                $targetKey = "value" . OnTheFlyFormHelper::idToSuffix($sameId);
                 $targetLabel = OnTheFlyFormHelper::getLabel($sameId, $model);
                 if (false === array_key_exists($targetKey, $model) || $value !== $model[$targetKey]) {
                     $tags["targetLabel"] = $targetLabel;
@@ -104,6 +104,68 @@ class OnTheFlyFormValidator implements ValidatorInterface
                     $tags["exactLength"] = $length;
                     $ok = false;
                 }
+                break;
+            /**
+             * When to use required if?
+             * --------------------------
+             *
+             * When you want to check if a field is completed, but only if a particular field is selected.
+             * For instance, imagine a form that ask the question:
+             *
+             * - Where do you come from?
+             *      - A land of peace
+             *          - please explain more: textarea
+             *      - A land of war
+             *      - my mother's house
+             *          - please explain more: textarea
+             *      - Jupiter
+             *
+             * So you see, the explain more textarea are required only if the user has selected either
+             * the first or the third choice.
+             *
+             *
+             * How to use requiredIf?
+             * ------------------------
+             *
+             * Let's take the example above again, but give more robotic names to fields:
+             *
+             * - provenance:
+             *      - peace:
+             *          - peaceTextarea:
+             *      - war:
+             *      - house:
+             *          - houseTextarea:
+             *      - jupiter:
+             *
+             * And so if you want the peaceTextarea to be required, but only if the peace radio button (for instance)
+             * was selected, do the following:
+             *
+             *          - requiredIf:provenance=peace
+             *
+             *
+             */
+            case 'requiredIf':
+                $condition = $this->getArgumentByIndex(0, $args);
+                $p = explode('=', $condition, 2);
+                if (count($p) > 1) {
+                    list($k, $v) = $p;
+                    $pascal = OnTheFlyFormHelper::idToSuffix($k);
+                    $key = 'name' . $pascal;
+                    $pascal = OnTheFlyFormHelper::idToSuffix($k);
+                    $val = 'value' . $pascal;
+                    if (
+                        true === array_key_exists($key, $model) &&
+                        true === array_key_exists($val, $model) &&
+                        $v === $model[$val]
+                    ) {
+                        if (empty($value)) {
+                            $ok = false;
+                        }
+                    }
+                } else {
+                    throw new OnTheFlyFormException("Invalid rule syntax: requiredIf:key=value expected, requiredIf:$condition given");
+                }
+
                 break;
             default:
                 throw new OnTheFlyFormException("Unknown ruleId: $ruleId");
@@ -150,6 +212,7 @@ class OnTheFlyFormValidator implements ValidatorInterface
     {
         return [
             "required" => "This field is required",
+            "requiredIf" => "This field is required",
             "email" => "This is not a valid email",
             "sameAs" => "This value doesn't match the {targetLabel} value",
             "minLength" => "This field must contain at least {minLength} characters",

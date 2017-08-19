@@ -29,6 +29,10 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     private $radioItems;
     private $singleCheckboxes;
     /**
+     * @var array of id => value
+     */
+    private $immutableValues; // those won't change
+    /**
      * @var ValidatorInterface
      */
     private $formValidator;
@@ -64,6 +68,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->radioItems = [];
         $this->singleCheckboxes = [];
         $this->labels = [];
+        $this->immutableValues = [];
     }
 
 
@@ -167,6 +172,14 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     }
 
 
+    public function setImmutableValues(array $immutableValues)
+    {
+        $this->immutableValues = $immutableValues;
+        return $this;
+    }
+
+
+
     //--------------------------------------------
     // FUNCTIONAL
     //--------------------------------------------
@@ -181,6 +194,14 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         if (true === $useAdaptor && null !== $this->inputDataAdaptor) {
             $data = $this->inputDataAdaptor->transform($data);
         }
+
+
+        // ensure immutable values don't change
+        if ($this->immutableValues) {
+            $data = array_replace($data, $this->immutableValues);
+        }
+
+
         $this->injectedData = $data;
         return $this;
     }
@@ -269,7 +290,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
                 }
 
 
-                $pascal = OnTheFlyFormHelper::idToPascal($id);
+                $pascal = OnTheFlyFormHelper::idToSuffix($id);
                 $model['name' . $pascal] = $id;
                 $model['value' . $pascal] = $value;
                 $model['error' . $pascal] = "";
@@ -281,15 +302,15 @@ class OnTheFlyForm implements OnTheFlyFormInterface
             }
 
             foreach ($this->options as $id => $options) {
-                $pascal = OnTheFlyFormHelper::idToPascal($id);
+                $pascal = OnTheFlyFormHelper::idToSuffix($id);
                 $model['options' . $pascal] = $options;
             }
 
 
             foreach ($this->radioItems as $id => $items) {
-                $pascal = OnTheFlyFormHelper::idToPascal($id);
+                $pascal = OnTheFlyFormHelper::idToSuffix($id);
                 foreach ($items as $item) {
-                    $checkedPascal = OnTheFlyFormHelper::idToPascal($item);
+                    $checkedPascal = OnTheFlyFormHelper::idToSuffix($item);
                     $model['value' . $pascal . '__' . $checkedPascal] = $item;
                     $model['checked' . $pascal . '__' . $checkedPascal] = (array_key_exists($id, $this->injectedData) && $item === $this->injectedData[$id]) ? 'checked' : '';
                 }
@@ -301,8 +322,15 @@ class OnTheFlyForm implements OnTheFlyFormInterface
                 if (array_key_exists($id, $this->injectedData) && 1 === (int)$this->injectedData[$id]) {
                     $checked = 'checked';
                 }
-                $pascal = OnTheFlyFormHelper::idToPascal($id);
+                $pascal = OnTheFlyFormHelper::idToSuffix($id);
                 $model['checked' . $pascal] = $checked;
+            }
+
+
+            foreach ($this->immutableValues as $id => $value) {
+                $pascal = OnTheFlyFormHelper::idToSuffix($id);
+                $model['name' . $pascal] = $id;
+                $model['value' . $pascal] = $value;
             }
 
 

@@ -47,6 +47,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
      */
     private $outputDataAdaptor;
     private $labels;
+    private $files;
 
     public function __construct()
     {
@@ -69,6 +70,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->singleCheckboxes = [];
         $this->labels = [];
         $this->immutableValues = [];
+        $this->files = [];
     }
 
 
@@ -178,6 +180,12 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         return $this;
     }
 
+    public function setFiles(array $files)
+    {
+        $this->files = $files;
+        return $this;
+    }
+
 
 
     //--------------------------------------------
@@ -284,9 +292,14 @@ class OnTheFlyForm implements OnTheFlyFormInterface
             //--------------------------------------------
             foreach ($this->ids as $id) {
 
-                $value = (array_key_exists($id, $this->injectedData)) ? $this->injectedData[$id] : '';
-                if (!in_array($id, $this->notHtmlSpecialChars)) {
-                    $value = htmlspecialchars($value);
+
+                if (!in_array($id, $this->files)) {
+                    $value = (array_key_exists($id, $this->injectedData)) ? $this->injectedData[$id] : '';
+                    if (!in_array($id, $this->notHtmlSpecialChars)) {
+                        $value = htmlspecialchars($value);
+                    }
+                } else {
+                    $value = (array_key_exists($id, $this->injectedData)) ? $this->injectedData[$id] : null;
                 }
 
 

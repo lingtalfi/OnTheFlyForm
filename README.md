@@ -209,6 +209,10 @@ History Log
     
     
     
+- 2.16.0 -- 2017-08-19
+
+    - add OnTheFlyForm.setFiles method
+    
 - 2.15.0 -- 2017-08-19
 
     - add OnTheFlyFormValidator requiredIf rule

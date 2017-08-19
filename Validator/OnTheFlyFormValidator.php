@@ -167,6 +167,31 @@ class OnTheFlyFormValidator implements ValidatorInterface
                 }
 
                 break;
+//            case 'fileRequired':
+//                a($value);
+//                az("here");
+//                $condition = $this->getArgumentByIndex(0, $args);
+//                $p = explode('=', $condition, 2);
+//                if (count($p) > 1) {
+//                    list($k, $v) = $p;
+//                    $pascal = OnTheFlyFormHelper::idToSuffix($k);
+//                    $key = 'name' . $pascal;
+//                    $pascal = OnTheFlyFormHelper::idToSuffix($k);
+//                    $val = 'value' . $pascal;
+//                    if (
+//                        true === array_key_exists($key, $model) &&
+//                        true === array_key_exists($val, $model) &&
+//                        $v === $model[$val]
+//                    ) {
+//                        if (empty($value)) {
+//                            $ok = false;
+//                        }
+//                    }
+//                } else {
+//                    throw new OnTheFlyFormException("Invalid rule syntax: requiredIf:key=value expected, requiredIf:$condition given");
+//                }
+//
+//                break;
             default:
                 throw new OnTheFlyFormException("Unknown ruleId: $ruleId");
                 break;

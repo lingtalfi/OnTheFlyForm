@@ -4,6 +4,7 @@
 namespace OnTheFlyForm\Validator;
 
 
+use ArrayToString\ArrayToStringTool;
 use FormTools\Validation\FormValidatorTool;
 use OnTheFlyForm\Exception\OnTheFlyFormException;
 use OnTheFlyForm\Helper\OnTheFlyFormHelper;
@@ -167,36 +168,53 @@ class OnTheFlyFormValidator implements ValidatorInterface
                 }
 
                 break;
-//            case 'fileRequired':
-//                a($value);
-//                az("here");
-//                $condition = $this->getArgumentByIndex(0, $args);
-//                $p = explode('=', $condition, 2);
-//                if (count($p) > 1) {
-//                    list($k, $v) = $p;
-//                    $pascal = OnTheFlyFormHelper::idToSuffix($k);
-//                    $key = 'name' . $pascal;
-//                    $pascal = OnTheFlyFormHelper::idToSuffix($k);
-//                    $val = 'value' . $pascal;
-//                    if (
-//                        true === array_key_exists($key, $model) &&
-//                        true === array_key_exists($val, $model) &&
-//                        $v === $model[$val]
-//                    ) {
-//                        if (empty($value)) {
-//                            $ok = false;
-//                        }
-//                    }
-//                } else {
-//                    throw new OnTheFlyFormException("Invalid rule syntax: requiredIf:key=value expected, requiredIf:$condition given");
-//                }
-//
-//                break;
+            case 'fileRequired':
+                if (is_array($value)) {
+                    if (
+                        !array_key_exists("tmp_name", $value) ||
+                        empty($value["tmp_name"])
+                    ) {
+                        $ok = false;
+                    }
+                } else {
+                    $ok = false;
+                }
+                break;
+            case 'fileMimeType':
+                if (is_array($value)) {
+                    if (array_key_exists("tmp_name", $value)) {
+                        $argMimes = $this->getArgumentByIndex(0, $args);
+                        $tags['mimeTypeList'] = $argMimes;
+                        $mimes = explode(',', $argMimes);
+                        $mimetype = mime_content_type($value['tmp_name']);
+                        $mimeMatch = false;
+                        foreach ($mimes as $mime) {
+                            $mime = trim($mime);
+                            if ($mimetype === $mime) {
+                                $mimeMatch = true;
+                                break;
+                            }
+                        }
+
+                        if (false === $mimeMatch) {
+                            $ok = false;
+                        }
+                    } else {
+                        $ok = false;
+                    }
+                } else {
+                    $ok = false;
+                }
+                break;
             default:
                 throw new OnTheFlyFormException("Unknown ruleId: $ruleId");
                 break;
         }
         if (false === $ok) {
+            if (is_array($value)) {
+                $value = ArrayToStringTool::toPhpArray($value);
+            }
+
             $tags['field'] = OnTheFlyFormHelper::getLabel($id, $model);
             $tags['value'] = $value;
             $errorMsg = $this->getErrorMessage($ruleId, $tags, $value, $model);
@@ -242,6 +260,8 @@ class OnTheFlyFormValidator implements ValidatorInterface
             "sameAs" => "This value doesn't match the {targetLabel} value",
             "minLength" => "This field must contain at least {minLength} characters",
             "exactLength" => "This field must contain exactly {exactLength} characters, {currentLength} given",
+            "fileRequired" => "This field requires a file to be set",
+            "fileMimeType" => "This file doesn't have one of the following mime types: {mimeTypeList}",
         ];
     }
 }

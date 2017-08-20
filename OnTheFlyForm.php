@@ -293,7 +293,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
             foreach ($this->ids as $id) {
 
 
-                if (!in_array($id, $this->files)) {
+                if (!in_array($id, $this->files) && !array_key_exists($id, $this->files)) {
                     $value = (array_key_exists($id, $this->injectedData)) ? $this->injectedData[$id] : '';
                     if (!in_array($id, $this->notHtmlSpecialChars)) {
                         $value = htmlspecialchars($value);
@@ -311,6 +311,20 @@ class OnTheFlyForm implements OnTheFlyFormInterface
                 if (array_key_exists($id, $this->labels)) {
                     $model['label' . $pascal] = $this->labels[$id];
                 }
+
+
+                if (in_array($id, $this->files) || array_key_exists($id, $this->files)) {
+                    $accept = "";
+                    if (
+                        array_key_exists($id, $this->files) &&
+                        is_array($this->files[$id]) &&
+                        array_key_exists('accept', $this->files[$id])
+                    ) {
+                        $accept = $this->files[$id]['accept'];
+                    }
+                    $model['accept' . $pascal] = $accept;
+                }
+
 
             }
 
@@ -345,7 +359,6 @@ class OnTheFlyForm implements OnTheFlyFormInterface
                 $model['name' . $pascal] = $id;
                 $model['value' . $pascal] = $value;
             }
-
 
             $model['nameKey'] = $this->key;
             $model['valueKey'] = 1;

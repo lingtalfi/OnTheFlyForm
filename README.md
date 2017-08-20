@@ -209,6 +209,11 @@ History Log
     
     
     
+- 2.17.0 -- 2017-08-19
+
+    - update OnTheFlyForm.setFiles now accepts "accept" argument
+    - add OnTheFlyFormValidator.fileMimeType validation rule
+    
 - 2.16.0 -- 2017-08-19
 
     - add OnTheFlyForm.setFiles method

@@ -180,6 +180,15 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         return $this;
     }
 
+    /**
+     * @param array $files ,
+     *              - array of identifier
+     *              or
+     *              - array of identifier => [accept => $acceptString]
+     *                  - $acceptString, same as html accept attribute's content
+     *
+     * @return $this
+     */
     public function setFiles(array $files)
     {
         $this->files = $files;

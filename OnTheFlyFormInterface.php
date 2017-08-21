@@ -24,6 +24,13 @@ interface OnTheFlyFormInterface
      */
     public function validate();
 
+
+    /**
+     * set $useAdaptor to true when you want to display the default values;
+     * let $useAdaptor be to false when the data comes from the user.
+     * More info: https://github.com/lingtalfi/OnTheFlyForm/blob/master/doc/adaptors.md
+     *
+     */
     public function inject(array $data, $useAdaptor = false);
 
     /**

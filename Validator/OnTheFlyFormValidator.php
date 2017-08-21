@@ -5,6 +5,7 @@ namespace OnTheFlyForm\Validator;
 
 
 use ArrayToString\ArrayToStringTool;
+use Bat\MimeTypeTool;
 use FormTools\Validation\FormValidatorTool;
 use OnTheFlyForm\Exception\OnTheFlyFormException;
 use OnTheFlyForm\Helper\OnTheFlyFormHelper;
@@ -186,7 +187,7 @@ class OnTheFlyFormValidator implements ValidatorInterface
                         $argMimes = $this->getArgumentByIndex(0, $args);
                         $tags['mimeTypeList'] = $argMimes;
                         $mimes = explode(',', $argMimes);
-                        $mimetype = mime_content_type($value['tmp_name']);
+                        $mimetype = MimeTypeTool::getMimeType($value['tmp_name']);
                         $mimeMatch = false;
                         foreach ($mimes as $mime) {
                             $mime = trim($mime);

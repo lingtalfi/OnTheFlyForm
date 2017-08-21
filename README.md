@@ -209,6 +209,10 @@ History Log
     
     
     
+- 2.17.1 -- 2017-08-21
+
+    - enhance OnTheFlyFormValidator.fileMimeType validation rule using Bat tools 
+    
 - 2.17.0 -- 2017-08-19
 
     - update OnTheFlyForm.setFiles now accepts "accept" argument

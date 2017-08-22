@@ -32,6 +32,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
      * @var array of id => value
      */
     private $immutableValues; // those won't change
+    private $constants; // those won't change, and won't be prefixed
     /**
      * @var ValidatorInterface
      */
@@ -71,6 +72,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->labels = [];
         $this->immutableValues = [];
         $this->files = [];
+        $this->constants = [];
     }
 
 
@@ -177,6 +179,12 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     public function setImmutableValues(array $immutableValues)
     {
         $this->immutableValues = $immutableValues;
+        return $this;
+    }
+
+    public function setConstants(array $constants)
+    {
+        $this->constants = $constants;
         return $this;
     }
 
@@ -375,6 +383,8 @@ class OnTheFlyForm implements OnTheFlyFormInterface
 
             $this->model = $model;
         }
+
+        $this->model = array_merge($this->model, $this->constants);
         return $this->model;
     }
 }

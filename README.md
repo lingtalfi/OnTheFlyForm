@@ -209,6 +209,10 @@ History Log
     
     
     
+- 2.18.0 -- 2017-08-22
+
+    - add OnTheFlyForm.setConstants method 
+    
 - 2.17.1 -- 2017-08-21
 
     - enhance OnTheFlyFormValidator.fileMimeType validation rule using Bat tools 

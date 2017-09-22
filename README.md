@@ -209,6 +209,10 @@ History Log
     
     
     
+- 2.19.0 -- 2017-09-22
+
+    - add OnTheFlyForm.groups property and corresponding addGroup method 
+    
 - 2.18.0 -- 2017-08-22
 
     - add OnTheFlyForm.setConstants method 

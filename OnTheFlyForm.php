@@ -49,6 +49,11 @@ class OnTheFlyForm implements OnTheFlyFormInterface
     private $outputDataAdaptor;
     private $labels;
     private $files;
+    /**
+     * @var array of groupName => ids of element in the group.
+     * Note: only the view will know how to represent groups (fieldsets, div, ...)
+     */
+    private $groups;
 
     public function __construct()
     {
@@ -73,6 +78,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->immutableValues = [];
         $this->files = [];
         $this->constants = [];
+        $this->groups = [];
     }
 
 
@@ -203,6 +209,11 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         return $this;
     }
 
+    public function addGroup($name, array $group)
+    {
+        $this->groups[$name] = $group;
+        return $this;
+    }
 
 
     //--------------------------------------------
@@ -248,6 +259,7 @@ class OnTheFlyForm implements OnTheFlyFormInterface
         $this->prepareModel();
         $this->model['formMethod'] = $this->method;
         $this->model['formAction'] = $this->action;
+        $this->model['groups'] = $this->groups;
 
         $this->model['errorMessage'] = $this->errorMessage;
         if (true === $this->isSuccess) {

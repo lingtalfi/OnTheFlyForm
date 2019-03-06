@@ -1,7 +1,7 @@
 <?php
 
 
-namespace OnTheFlyForm\Validator;
+namespace Ling\OnTheFlyForm\Validator;
 
 
 interface ValidatorInterface

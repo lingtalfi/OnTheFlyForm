@@ -1,10 +1,10 @@
 <?php
 
 
-namespace OnTheFlyForm\Provider;
+namespace Ling\OnTheFlyForm\Provider;
 
 
-use OnTheFlyForm\OnTheFlyFormInterface;
+use Ling\OnTheFlyForm\OnTheFlyFormInterface;
 
 interface OnTheFlyFormProviderInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace OnTheFlyForm\Exception;
+namespace Ling\OnTheFlyForm\Exception;
 
 
 class OnTheFlyFormException extends \Exception

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace OnTheFlyForm\Helper;
+namespace Ling\OnTheFlyForm\Helper;
 
 
-use Bat\CaseTool;
+use Ling\Bat\CaseTool;
 
 class OnTheFlyFormHelper
 {

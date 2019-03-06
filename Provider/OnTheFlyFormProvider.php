@@ -1,9 +1,9 @@
 <?php
 
 
-namespace OnTheFlyForm\Provider;
+namespace Ling\OnTheFlyForm\Provider;
 
-use OnTheFlyForm\Exception\OnTheFlyFormException;
+use Ling\OnTheFlyForm\Exception\OnTheFlyFormException;
 
 
 /**

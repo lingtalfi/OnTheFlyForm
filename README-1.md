@@ -171,7 +171,7 @@ Here is an example of what you would do server side:
 //--------------------------------------------
 // EXAMPLE FOR THE SYNTAX 
 //--------------------------------------------
-use FormTools\Validation\OnTheFlyFormValidator;
+use Ling\FormTools\Validation\OnTheFlyFormValidator;
 
 
 // assuming we're in some kind of controller

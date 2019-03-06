@@ -1,7 +1,7 @@
 <?php
 
 
-namespace OnTheFlyForm\DataAdaptor;
+namespace Ling\OnTheFlyForm\DataAdaptor;
 
 
 class DataAdaptor implements DataAdaptorInterface

@@ -180,7 +180,7 @@ Note: I'm using kamille framework here, but you obviously can adapt this code to
 <?php
 
 use Kamille\Utils\ThemeHelper\KamilleThemeHelper;
-use OnTheFlyForm\Helper\OnTheFlyFormHelper;
+use Ling\OnTheFlyForm\Helper\OnTheFlyFormHelper;
 use Theme\LeeTheme;
 
 

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace OnTheFlyForm\Helper;
+namespace Ling\OnTheFlyForm\Helper;
 
 
-use OnTheFlyForm\OnTheFlyFormInterface;
+use Ling\OnTheFlyForm\OnTheFlyFormInterface;
 
 class OffProtocolHelper
 {

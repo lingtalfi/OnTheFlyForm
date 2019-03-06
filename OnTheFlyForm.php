@@ -1,12 +1,12 @@
 <?php
 
 
-namespace OnTheFlyForm;
+namespace Ling\OnTheFlyForm;
 
 
-use OnTheFlyForm\DataAdaptor\DataAdaptorInterface;
-use OnTheFlyForm\Helper\OnTheFlyFormHelper;
-use OnTheFlyForm\Validator\ValidatorInterface;
+use Ling\OnTheFlyForm\DataAdaptor\DataAdaptorInterface;
+use Ling\OnTheFlyForm\Helper\OnTheFlyFormHelper;
+use Ling\OnTheFlyForm\Validator\ValidatorInterface;
 
 class OnTheFlyForm implements OnTheFlyFormInterface
 {

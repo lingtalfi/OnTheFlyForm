@@ -1,14 +1,14 @@
 <?php
 
 
-namespace OnTheFlyForm\Validator;
+namespace Ling\OnTheFlyForm\Validator;
 
 
-use ArrayToString\ArrayToStringTool;
-use Bat\MimeTypeTool;
-use FormTools\Validation\FormValidatorTool;
-use OnTheFlyForm\Exception\OnTheFlyFormException;
-use OnTheFlyForm\Helper\OnTheFlyFormHelper;
+use Ling\ArrayToString\ArrayToStringTool;
+use Ling\Bat\MimeTypeTool;
+use Ling\FormTools\Validation\FormValidatorTool;
+use Ling\OnTheFlyForm\Exception\OnTheFlyFormException;
+use Ling\OnTheFlyForm\Helper\OnTheFlyFormHelper;
 
 class OnTheFlyFormValidator implements ValidatorInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace OnTheFlyForm;
+namespace Ling\OnTheFlyForm;
 
 
 interface OnTheFlyFormInterface
